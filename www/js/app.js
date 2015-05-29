@@ -87,7 +87,11 @@ app.run(function ($document, $rootScope, pictureDirectionService, languageServic
     $document.on("deviceready", function () {
         FastClick.attach(document.body);
 
-        if (intel.xdk.isxdk !== true) {
+        // "window.tinyhippos" is a safe way to check to see if this
+        // is being run in the XDK emulator
+        if (window.tinyhippos) {
+            pictureDirectionService.initialize();
+        } else {
             languageService.setGermanIfAvailable();
             pictureDirectionService.initialize();
         }
